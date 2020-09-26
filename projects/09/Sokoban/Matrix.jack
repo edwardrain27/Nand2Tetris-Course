@@ -1,0 +1,44 @@
+
+class Matrix {
+    field Array matriz;
+    field int w;
+    constructor Matrix new(int n) {
+        var int i;
+        let w=n;
+        let matriz=Array.new(n);
+        let i = 0;
+        while(i<n){
+        let matriz[i]=Array.new(n);
+        let i = i + 1;
+        }
+
+        return this;
+    }
+
+    method void setValue(int x,int y,int value){
+    var Array aux;
+    let aux=matriz[y];
+    let aux[x]=value;
+
+    return;
+    }
+
+    method int getValue(int x,int y){
+    var int i;
+    var Array aux;
+    let aux=matriz[y];
+    let i=aux[x];
+
+    return i;
+    }
+
+
+    method void dispose() {
+        do matriz.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+
+
+}

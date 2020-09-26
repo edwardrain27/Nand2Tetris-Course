@@ -1,0 +1,61 @@
+
+class Game {
+    field Mapa juego;
+    field int direction;
+
+    constructor Game new() {
+    let juego=Mapa.new();
+    do juego.mostrar();
+        return this;
+    }
+
+    method void movimiento(){
+    if (direction = 1) { do juego.moveUp(); }
+    if (direction = 2) { do juego.moveDown(); }
+    if (direction = 3) { do juego.moveLeft(); }
+    if (direction = 4) { do juego.moveRight(); }
+    do Sys.wait(25);  // delays the next movement
+    return;
+    }
+
+    method void run(){
+    var char key;
+    var boolean exit;
+    let exit = false;
+    while (~exit) {
+       // waits for a key to be pressed
+       while (key = 0) {
+          let key = Keyboard.keyPressed();
+       }
+
+       if (key = 131) { let direction = 1; }   // up arrow
+       if (key = 133) { let direction = 2; }   // down arrow
+       if (key = 130) { let direction = 3; }   // left arrow
+       if (key = 132) { let direction = 4; }   // right arrow
+
+       // waits for the key to be released
+       while (~(key = 0)) {
+          let key = Keyboard.keyPressed();
+       }
+       do movimiento();
+       do Sys.wait(60);
+   } // while
+
+    do movimiento();
+    do juego.mostrar();
+    
+    return;
+    }
+
+
+
+
+    method void dispose() {
+        do juego.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+
+
+}

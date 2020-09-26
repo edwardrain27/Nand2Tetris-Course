@@ -1,0 +1,271 @@
+
+class Mapa {
+    field Matrix mapa;
+    field int n,x,y,cx,cy,lx,ly;
+    field int bandera;
+    constructor Mapa new() {
+    ///8x8 mapa
+        let n=6;
+        let mapa=Matrix.new(n);
+        let x=3;
+        let y=2;
+        let cx=2;
+        let cy=2;
+        let lx=4;
+        let ly=4;
+        let bandera=0;
+
+        do mapa.setValue(0,0,1);
+        do mapa.setValue(1,0,1);
+        do mapa.setValue(2,0,1);
+        do mapa.setValue(3,0,1);
+        do mapa.setValue(4,0,1);
+        do mapa.setValue(5,0,1);
+
+        do mapa.setValue(0,1,1);
+        do mapa.setValue(1,1,0);
+        do mapa.setValue(2,1,0);
+        do mapa.setValue(3,1,0);
+        do mapa.setValue(4,1,0);
+        do mapa.setValue(5,1,1);
+
+        do mapa.setValue(0,2,1);
+        do mapa.setValue(1,2,0);
+        do mapa.setValue(2,2,0);
+        do mapa.setValue(3,2,0);
+        do mapa.setValue(4,2,0);
+        do mapa.setValue(5,2,1);
+
+        do mapa.setValue(0,3,1);
+        do mapa.setValue(1,3,0);
+        do mapa.setValue(2,3,0);
+        do mapa.setValue(3,3,0);
+        do mapa.setValue(4,3,0);
+        do mapa.setValue(5,3,1);
+
+        do mapa.setValue(0,4,1);
+        do mapa.setValue(1,4,0);
+        do mapa.setValue(2,4,0);
+        do mapa.setValue(3,4,0);
+        do mapa.setValue(4,4,0);
+        do mapa.setValue(5,4,1);
+
+        do mapa.setValue(0,5,1);
+        do mapa.setValue(1,5,1);
+        do mapa.setValue(2,5,1);
+        do mapa.setValue(3,5,1);
+        do mapa.setValue(4,5,1);
+        do mapa.setValue(5,5,1);
+
+
+        do mapa.setValue(cx,cy,4);
+        do mapa.setValue(x,y,2);
+
+        return this;
+    }
+
+  method void moveUp(){
+  var int dx,dy;
+  let dy=y-1;
+  let dx=x;
+  if (mapa.getValue(dx,dy)=0){
+  do mapa.setValue(x,y,0);
+  do mapa.setValue(dx,dy,2);
+  let x=dx;
+  let y=dy;
+  }
+
+  if (mapa.getValue(dx,dy)=4){
+      if(mapa.getValue(dx,dy-1)=0){
+
+      do mapa.setValue(cx,cy,0);
+      do mapa.setValue(dx,dy-1,4);
+      let cx=dx;
+      let cy=dy-1;
+
+      do mapa.setValue(x,y,0);
+      do mapa.setValue(dx,dy,2);
+      let x=dx;
+      let y=dy;
+      }
+
+      }
+
+  do getBandera();
+  do mostrar();
+  return;
+  }
+
+  method void moveDown(){
+  var int dx,dy;
+  let dy=y+1;
+  let dx=x;
+  if (mapa.getValue(dx,dy)=0){
+  do mapa.setValue(x,y,0);
+  do mapa.setValue(dx,dy,2);
+  let x=dx;
+  let y=dy;
+  }
+
+  if (mapa.getValue(dx,dy)=4){
+      if(mapa.getValue(dx,dy+1)=0){
+
+      do mapa.setValue(cx,cy,0);
+      do mapa.setValue(dx,dy+1,4);
+      let cx=dx;
+      let cy=dy+1;
+
+      do mapa.setValue(x,y,0);
+      do mapa.setValue(dx,dy,2);
+      let x=dx;
+      let y=dy;
+      }
+
+      }
+
+  do getBandera();
+  do mostrar();
+  return;
+  }
+
+  method void moveLeft(){
+  var int dx,dy;
+  let dy=y;
+  let dx=x-1;
+  if (mapa.getValue(dx,dy)=0){
+  do mapa.setValue(x,y,0);
+  do mapa.setValue(dx,dy,2);
+  let x=dx;
+  let y=dy;
+  }
+  if (mapa.getValue(dx,dy)=4){
+      if(mapa.getValue(dx-1,dy)=0){
+      do mapa.setValue(cx,cy,0);
+      do mapa.setValue(dx-1,dy,4);
+      let cx=dx-1;
+      let cy=dy;
+      do mapa.setValue(x,y,0);
+      do mapa.setValue(dx,dy,2);
+      let x=dx;
+      let y=dy;
+      }
+
+      }
+
+  do getBandera();
+  do mostrar();
+  return;
+  }
+
+  method void moveRight(){
+  var int dx,dy;
+  let dy=y;
+  let dx=x+1;
+  if (mapa.getValue(dx,dy)=0){
+  do mapa.setValue(x,y,0);
+  do mapa.setValue(dx,dy,2);
+  let x=dx;
+  let y=dy;
+  }
+  if (mapa.getValue(dx,dy)=4){
+      if(mapa.getValue(dx+1,dy)=0){
+
+      do mapa.setValue(cx,cy,0);
+      do mapa.setValue(dx+1,dy,4);
+      let cx=dx+1;
+      let cy=dy;
+
+      do mapa.setValue(x,y,0);
+      do mapa.setValue(dx,dy,2);
+      let x=dx;
+      let y=dy;
+      }
+      }
+  do getBandera();
+  do mostrar();
+  return;
+  }
+
+  method void getBandera(){
+  if(cx=lx & cy=ly){
+  let bandera=1;
+  }
+  return ;
+  }
+
+    method void mostraraux(int j){
+    var int i;
+    var String str;
+    let i=0;
+    while(i<n){
+    do Output.moveCursor(j,i);
+
+    if(mapa.getValue(i,j)=1){
+    let str="#";
+    do Output.printString(str);
+    do str.dispose();
+    }
+
+    if(i=lx & j=ly){
+    let str="O";
+    do Output.printString(str);
+    do str.dispose();
+    }
+
+    if(mapa.getValue(i,j)=4){
+    let str="C";
+    do Output.printString(str);
+    do str.dispose();
+    }
+
+    if(mapa.getValue(i,j)=0){
+    let str=" ";
+    do Output.printString(str);
+    do str.dispose();
+    }
+
+    if(mapa.getValue(i,j)=2){
+    let str="X";
+    do Output.printString(str);
+    do str.dispose();
+    }
+
+
+    let i=i+1;
+    }
+    return;
+    }
+
+    method void mostrar(){
+    var int i,j;
+    var String str;
+    do Screen.clearScreen();
+
+    let str="nada";
+    if(bandera=1){
+    let str="GANASTE";
+    do Output.printString(str);
+    do Output.println();
+    do str.dispose();
+    }
+    do str.dispose();
+    let j=0;
+    while(j<n){
+    do mostraraux(j);
+    do Output.println();
+    let j=j+1;
+    }
+
+    return;
+    }
+
+
+    method void dispose() {
+        do mapa.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+
+
+}
