@@ -1,5 +1,6 @@
 # Nand2Tetris-Course
-This is the implementatios projects of coursera courses Nand2Tetris Part I and Part II
+This project seeks to build a computer (Hack computer) from simple logic gates (Nand) and later build a video game (Tetris)
+hence its name (Nand2Tetris)
 
 https://www.nand2tetris.org/
 Part I 
